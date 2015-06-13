@@ -1,6 +1,8 @@
 define(['util/Objects'], function (Objects) {
 
     var Renderer = {};
+    
+    var currentInfoWindow = null;
 
     Renderer.showInfoWindowForMarker = function (marker, supercharger) {
         var popupContent = "<div class='info-window-content'>";
@@ -29,6 +31,10 @@ define(['util/Objects'], function (Objects) {
         var windowOptions = { content: popupContent };
         var infoWindow = new google.maps.InfoWindow(windowOptions);
         infoWindow.open(marker.map, marker);
+        if (currentInfoWindow) {
+            currentInfoWindow.close();
+        }
+        currentInfoWindow = infoWindow;
     };
 
     function buildLinksDiv(supercharger) {
